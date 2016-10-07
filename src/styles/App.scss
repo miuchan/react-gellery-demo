@@ -9,13 +9,13 @@ html, body {
   height: 100%;
 }
 
-/* stage start */
-.stage {
+/* gellery start */
+.gellery {
   position: relative;
   width: 100%;
   height: 680px;
 }
-/* stage end */
+/* gellery end */
 
 /* image start */
 .img-sec {
@@ -24,16 +24,43 @@ html, body {
   height: 100%;
   overflow: hidden;
   background-color: #ddd;
+
+    .img-figure {
+      position: absolute;
+      height: 320px;
+      width: 360px;
+      margin: 0;
+      padding: 20px;
+      background-color: #fff;
+      box-sizing: border-box;
+
+      img {
+        height: 280px;
+        width: 320px;
+      }
+
+      figcaption {
+        text-align: center;
+
+        .img-title {
+          margin: 20px 0 0 0;
+          color: #a7a0a2;
+          font-size: 16px;
+        }
+      }
+    }
+
 }
 /* image end */
 
 /* contoller start */
-.controller-nav {
+.nav-sec {
   position: absolute;
   left: 0;
   bottom: 30px;
   z-index: 101;
   width: 100%;
   text-align: center;
+
 }
 /* controller end */

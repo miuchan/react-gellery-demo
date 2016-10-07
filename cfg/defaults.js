@@ -20,7 +20,7 @@ function getDefaultModules() {
       {
         test: /\.(js|jsx)$/,
         include: srcPath,
-        loader: 'eslint-loader'
+        loader: 'eslint-loader?{rules:{"no-console":0}}'
       }
     ],
     loaders: [
