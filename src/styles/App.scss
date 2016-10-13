@@ -27,16 +27,24 @@ html, body {
 
     .img-figure {
       position: absolute;
-      height: 320px;
+      height: 360px;
       width: 360px;
       margin: 0;
       padding: 20px;
       background-color: #fff;
       box-sizing: border-box;
+      transform-style: preserve-3d;
+      transition: transform .6s ease-in-out;
+      cursor: pointer;
+
+      &.inverse {
+        transform: rotateY(180deg);
+      }
 
       img {
         height: 280px;
         width: 320px;
+
       }
 
       figcaption {
@@ -46,6 +54,19 @@ html, body {
           margin: 20px 0 0 0;
           color: #a7a0a2;
           font-size: 16px;
+        }
+
+        .img-back {
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          top: 0;
+          left: 0;
+          padding: 90px 40px;
+          box-sizing: border-box;
+          background-color: #fff;
+          transform: rotateY(180deg);
+          backface-visibility: hidden;
         }
       }
     }
