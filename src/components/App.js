@@ -25,7 +25,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       imgsArrangeArr: [
-/*
+        /*
         pos: {
           left: 0,
           right: 0
@@ -33,7 +33,7 @@ class App extends React.Component {
         rotate: 0,  // Rotation angle
         isInverse: false,  // Inverse or not
         isCenter: false
-*/
+        */
       ]
     };
 
@@ -77,14 +77,14 @@ class App extends React.Component {
     }
 
     this.posLimit.hPosRange.leftSecX[0] = -halfImgW;
-    this.posLimit.hPosRange.leftSecX[1] = halfGelleryW - halfImgW * 3;
+    this.posLimit.hPosRange.leftSecX[1] = halfGelleryW - halfImgW * 2;
     this.posLimit.hPosRange.rightSecX[0] = halfGelleryW + halfImgW;
     this.posLimit.hPosRange.rightSecX[1] = gelleryW - halfImgW;
     this.posLimit.hPosRange.y[0] = -halfImgH;
     this.posLimit.hPosRange.y[1] = gelleryH - halfImgH;
 
     this.posLimit.vPosRange.topY[0] = -halfImgH;
-    this.posLimit.vPosRange.topY[1] = halfGelleryH - halfImgH * 3;
+    this.posLimit.vPosRange.topY[1] = halfGelleryH - halfImgH * 2;
     this.posLimit.vPosRange.x[0] = halfGelleryW - halfImgW;
     this.posLimit.vPosRange.x[1] = halfGelleryW;
 
@@ -92,11 +92,11 @@ class App extends React.Component {
     this.rearrange(0);
   }
 
-/*
- * Get the function that to be used to inverse image
- * @param index The index of the image that to be inverse in the image array
- * @return {Function} The real function to be invoke
- */
+  /*
+  * Get the function that to be used to inverse image
+  * @param index The index of the image that to be inverse in the image array
+  * @return {Function} The real function to be invoke
+  */
   getInverseFn(index) {
     return function() {
       let imgsArrangeArr = this.state.imgsArrangeArr;
@@ -108,10 +108,10 @@ class App extends React.Component {
     }.bind(this);
   }
 
-/*
- * Rearrange all images
- * @param centerIndex Specified the index of center image
- */
+  /*
+  * Rearrange all images
+  * @param centerIndex Specified the index of center image
+  */
   rearrange(centerIndex) {
     let imgsArrangeArr = this.state.imgsArrangeArr,
         posLimit = this.posLimit,
@@ -130,66 +130,69 @@ class App extends React.Component {
 
         imgsArrangeCenterArr = imgsArrangeArr.splice(centerIndex, 1);
 
-        // Get the status of center image
-        imgsArrangeCenterArr[0] = {
-          pos: centerPos,
-          rotate: 0,
-          isCenter: true
+    // Get the status of center image
+    imgsArrangeCenterArr[0] = {
+      pos: centerPos,
+      rotate: 0,
+      isCenter: true
+    }
+
+    // Get the status of top images
+    topImgSpliceIndex = Math.floor(Math.random()
+    * (imgsArrangeArr.length - 1 - topImgNum));
+
+    imgsArrangeTopArr = imgsArrangeArr.splice(
+      topImgSpliceIndex, topImgNum);
+
+      imgsArrangeTopArr.forEach(function (value, index) {
+        imgsArrangeTopArr[index] = {
+          pos: {
+            top: getRamdomValueInRange(vPosRangeTopY[0], vPosRangeTopY[1]),
+            left: getRamdomValueInRange(vPosRangeX[0], vPosRangeX[1])
+          },
+          rotate: getRandomDeg(),
+          isCenter: false
+
+        }
+      });
+
+      // Get the status of left and right images
+      for(let i = 0, j = imgsArrangeArr.length, k = j / 2; i < j; i++ ) {
+
+        // The first half part for left, second for right
+        let hPosRangeX;
+        if(i < k) {
+          hPosRangeX = hPosRangeLeftSecX;
+        } else {
+          hPosRangeX = hPosRangeRightSecX;
         }
 
-        // Get the status of top images
-        topImgSpliceIndex = Math.floor(Math.random()
-          * (imgsArrangeArr.length - topImgNum));
-        imgsArrangeTopArr[0] = imgsArrangeArr.splice(
-          topImgSpliceIndex, topImgNum);
-
-        imgsArrangeTopArr.forEach(function (value, index) {
-          imgsArrangeTopArr[index]= {
-            pos: {
-              top: getRamdomValueInRange(vPosRangeTopY[0], vPosRangeTopY[1]),
-              left: getRamdomValueInRange(vPosRangeX[0], vPosRangeX[1])
-            },
-            rotate: getRandomDeg(),
-            isCenter: false
-
-          }
-        });
-
-        // Get the status of left and right images
-        for(let i = 0, j = imgsArrangeArr.length, k = j / 2; i < j; i++ ) {
-
-          // The first half part for left, second for right
-          let hPosRangeX;
-          if(i < k) {
-            hPosRangeX = hPosRangeLeftSecX;
-          } else {
-            hPosRangeX = hPosRangeRightSecX;
-          }
-
-          imgsArrangeArr[i] = {
-            pos: {
-              top: getRamdomValueInRange(hPosRangeY[0], hPosRangeY[1]),
-              left: getRamdomValueInRange(hPosRangeX[0], hPosRangeX[1])
-            },
-            rotate: getRandomDeg(),
-            isCenter: false
-          }
+        imgsArrangeArr[i] = {
+          pos: {
+            top: getRamdomValueInRange(hPosRangeY[0], hPosRangeY[1]),
+            left: getRamdomValueInRange(hPosRangeX[0], hPosRangeX[1])
+          },
+          rotate: getRandomDeg(),
+          isCenter: false
         }
+      }
 
-        if (imgsArrangeTopArr && imgsArrangeTopArr[0]) {
-          imgsArrangeArr.splice(topImgSpliceIndex, 0, imgsArrangeTopArr[0]);
-          imgsArrangeArr.splice(centerIndex, 0, imgsArrangeCenterArr[0]);
-        }
-        this.setState({
-          imgsArrangeArr: imgsArrangeArr
-        });
-  }
+      if (imgsArrangeTopArr[0]) {
+        imgsArrangeArr.splice(topImgSpliceIndex, 0, imgsArrangeTopArr[0]);
+      }
 
-/*
- * Get the function that to be used to centralize the image clicked
- * @param index The index of the image that was clicked
- * @return Function
- */
+      imgsArrangeArr.splice(centerIndex, 0, imgsArrangeCenterArr[0]);
+
+      this.setState({
+        imgsArrangeArr: imgsArrangeArr
+      });
+    }
+
+  /*
+  * Get the function that to be used to centralize the image clicked
+  * @param index The index of the image that was clicked
+  * @return Function
+  */
 
   getCentralizeFn(index) {
     return function() {
@@ -199,7 +202,7 @@ class App extends React.Component {
 
   render() {
     let controllerUnits = [],
-        imgFigures = [];
+    imgFigures = [];
 
     imageDatas.forEach(function (value, index) {
 
@@ -216,11 +219,15 @@ class App extends React.Component {
         }
       }
 
-      imgFigures.push(<ImgFigure key={value.imageURL} data={value}
-        ref={'ImgFigure' + index}
-        arrange={this.state.imgsArrangeArr[index]}
-        inverse={this.getInverseFn(index)}
-        centralize={this.getCentralizeFn(index)}/>);
+      imgFigures.push(
+        <ImgFigure
+          key={value.imageURL}
+          data={value}
+          ref={'ImgFigure' + index}
+          arrange={this.state.imgsArrangeArr[index]}
+          inverse={this.getInverseFn(index)}
+          centralize={this.getCentralizeFn(index)}/>
+      );
     }.bind(this));
     return (
       <section className="gellery" ref="gellery">

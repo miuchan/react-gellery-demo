@@ -28,47 +28,38 @@ class ImgFigure extends React.Component {
     }
 
     if (this.props.arrange.rotate) {
-      styleObj['transform'] = `rotate(${this.props.arrange.rotate}deg)`;
+      styleObj.transform = `rotate(${this.props.arrange.rotate}deg)`;
+    }
+
+    if (this.props.arrange.isCenter) {
+      styleObj.zIndex = 11;
     }
 
     let className = 'img-figure';
     className += this.props.arrange.isInverse ? ' inverse' : '';
 
-    return ( <
-      figure className = {
-        className
-      }
-      style = {
-        styleObj
-      }
-      onClick = {
-        this.handleClick
-      } >
-      <
-      img src = {
-        this.props.data.imageURL
-      }
-      alt = {
-        this.props.data.title
-      }
-      /> <
-      figcaption >
-      <
-      h2 className = "img-title" > {
-        this.props.data.title
-      } < /h2> <
-      div className = "img-back"
-      onClick = {
-        this.handleClick
-      } >
-      <
-      p > {
-        this.props.data.desc
-      } <
-      /p> <
-      /div> <
-      /figcaption> <
-      /figure>
+    return (
+      <figure
+        className = {className}
+        style = {styleObj}
+
+        onClick = {this.handleClick} >
+        <img
+          src = {this.props.data.imageURL}
+          alt = {this.props.data.title} />
+        <figcaption >
+          <h2 className = "img-title" >
+            {this.props.data.title}
+          </h2>
+          <div
+            className = "img-back"
+            onClick = {this.handleClick} >
+            <p>
+              {this.props.data.desc}
+            </p>
+          </div>
+        </figcaption>
+      </figure>
     );
   }
 }
