@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import ImgFigure from './ImgFigure';
+import ControllerUnit from './ControllerUnit';
 import {getRamdomValueInRange, getRandomDeg} from '../utils/RandomUtils';
 let imageDatas = require('../datas/imageDatas.json');
 
@@ -203,7 +204,7 @@ class App extends React.Component {
   render() {
     let controllerUnits = [],
     imgFigures = [];
-
+    console.log('aha');
     imageDatas.forEach(function (value, index) {
 
       // Initialize imgsArrangeArr
@@ -226,9 +227,18 @@ class App extends React.Component {
           ref={'ImgFigure' + index}
           arrange={this.state.imgsArrangeArr[index]}
           inverse={this.getInverseFn(index)}
-          centralize={this.getCentralizeFn(index)}/>
+          centralize={this.getCentralizeFn(index)} />
       );
+      controllerUnits.push(
+        <ControllerUnit
+          key={index}
+          arrange={this.state.imgsArrangeArr[index]}
+          inverse={this.getInverseFn(index)}
+          centralize={this.getCentralizeFn(index)} />
+       );
     }.bind(this));
+
+
     return (
       <section className="gellery" ref="gellery">
         <section className="img-sec">
@@ -244,7 +254,5 @@ class App extends React.Component {
 
 }
 
-App.defaultProps = {
-};
 
 export default App;

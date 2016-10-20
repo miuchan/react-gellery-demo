@@ -1,5 +1,5 @@
 import 'normalize.css';
-import 'styles/App.scss';
+import 'styles/app.scss';
 import 'core-js/fn/object/assign';
 import React from 'react';
 import ReactDOM from 'react-dom';
