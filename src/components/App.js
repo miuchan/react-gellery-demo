@@ -204,7 +204,6 @@ class App extends React.Component {
   render() {
     let controllerUnits = [],
     imgFigures = [];
-    console.log('aha');
     imageDatas.forEach(function (value, index) {
 
       // Initialize imgsArrangeArr
