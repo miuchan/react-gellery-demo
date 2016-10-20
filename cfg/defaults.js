@@ -20,7 +20,7 @@ function getDefaultModules() {
       {
         test: /\.(js|jsx)$/,
         include: srcPath,
-        loader: 'eslint-loader?{rules:{"no-console":0}}'
+        loader: 'eslint-loader'
       }
     ],
     loaders: [
@@ -49,7 +49,7 @@ function getDefaultModules() {
         loader: 'json-loader'
       },
       {
-        test: /\.(png|jpg|gif|woff|woff2)$/,
+        test: /\.(png|jpg|gif|svg|ttf|woff|woff2|eot)$/,
         loader: 'url-loader?limit=8192'
       },
       {
@@ -62,7 +62,7 @@ function getDefaultModules() {
 
 module.exports = {
   srcPath: srcPath,
-  publicPath: '/assets/',
+  publicPath: 'assets/',
   port: dfltPort,
   getDefaultModules: getDefaultModules
 };
